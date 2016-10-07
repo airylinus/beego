@@ -116,8 +116,8 @@ var (
 	// GlobalSessions is the instance for the session manager
 	GlobalSessions *session.Manager
 
-	// appConfigPath is the path to the config files
-	appConfigPath string
+	// AppConfigPath is the path to the config files
+	AppConfigPath string
 	// appConfigProvider is the provider for the config, default is ini
 	appConfigProvider = "ini"
 )
@@ -132,15 +132,17 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
-	appConfigPath = filepath.Join(workPath, "conf", "app.conf")
-	if !utils.FileExists(appConfigPath) {
-		appConfigPath = filepath.Join(AppPath, "conf", "app.conf")
-		if !utils.FileExists(appConfigPath) {
+	if AppConfigPath == nil {
+		AppConfigPath = filepath.Join(workPath, "conf", "app.conf")
+	}
+	if !utils.FileExists(AppConfigPath) {
+		AppConfigPath = filepath.Join(AppPath, "conf", "app.conf")
+		if !utils.FileExists(AppConfigPath) {
 			AppConfig = &beegoAppConfig{innerConfig: config.NewFakeConfig()}
 			return
 		}
 	}
-	if err = parseConfig(appConfigPath); err != nil {
+	if err = parseConfig(AppConfigPath); err != nil {
 		panic(err)
 	}
 }
