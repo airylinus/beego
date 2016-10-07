@@ -94,7 +94,7 @@ func listConf(rw http.ResponseWriter, r *http.Request) {
 	case "conf":
 		m := make(map[string]interface{})
 		list("BConfig", BConfig, m)
-		m["AppConfigPath"] = appConfigPath
+		m["AppConfigPath"] = AppConfigPath
 		m["AppConfigProvider"] = appConfigProvider
 		tmpl := template.Must(template.New("dashboard").Parse(dashboardTpl))
 		tmpl = template.Must(tmpl.Parse(configTpl))
